@@ -5,11 +5,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Store, ShoppingBasket, Leaf, ArrowLeft } from "lucide-react"
 import { MarketplaceContent } from "@/components/marketplace/marketplace-content"
+import { GrocerPortal } from "@/components/grocer-portal"
 
-type SelectedRole = "none" | "grocer" | "user"
+type SelectedRole = "selector" | "grocer" | "user"
 
 export function RoleSelector() {
-  const [selectedRole, setSelectedRole] = useState<SelectedRole>("none")
+  const [selectedRole, setSelectedRole] = useState<SelectedRole>("selector")
 
   // If User Marketplace is selected, render the full MarketplaceContent
   if (selectedRole === "user") {
@@ -21,7 +22,7 @@ export function RoleSelector() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={() => setSelectedRole("none")}
+              onClick={() => setSelectedRole("selector")}
               className="gap-2 text-muted-foreground hover:text-foreground"
             >
               <ArrowLeft className="h-4 w-4" />
@@ -34,35 +35,25 @@ export function RoleSelector() {
     )
   }
 
-  // If Grocer Portal is selected, show placeholder message
+  // If Grocer Portal is selected, render the full GrocerPortal
   if (selectedRole === "grocer") {
     return (
-      <div className="flex min-h-screen flex-col items-center justify-center bg-background p-4">
-        <Card className="w-full max-w-md border-0 shadow-lg">
-          <CardHeader className="text-center">
-            <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10">
-              <Store className="h-8 w-8 text-primary" />
-            </div>
-            <CardTitle className="text-xl text-foreground">Grocer Upload Interface</CardTitle>
-            <CardDescription className="text-muted-foreground">
-              Already Built - This is where grocers would upload their surplus produce.
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="text-center">
-            <p className="mb-6 text-sm text-muted-foreground">
-              The grocer upload functionality has been previously implemented. 
-              This placeholder confirms the portal selection is working correctly.
-            </p>
+      <div className="min-h-screen bg-background">
+        {/* Back button */}
+        <div className="border-b bg-muted/30">
+          <div className="mx-auto max-w-7xl px-4 py-2">
             <Button
-              variant="outline"
-              onClick={() => setSelectedRole("none")}
-              className="gap-2"
+              variant="ghost"
+              size="sm"
+              onClick={() => setSelectedRole("selector")}
+              className="gap-2 text-muted-foreground hover:text-foreground"
             >
               <ArrowLeft className="h-4 w-4" />
               Back to Role Selector
             </Button>
-          </CardContent>
-        </Card>
+          </div>
+        </div>
+        <GrocerPortal />
       </div>
     )
   }
