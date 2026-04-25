@@ -29,16 +29,40 @@ export const metadata: Metadata = {
   },
 }
 
+import { ThemeProvider } from "@/components/theme-provider"
+import type { Viewport } from "next"
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
+  viewportFit: "cover",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#FDFBF7" },
+    { media: "(prefers-color-scheme: dark)", color: "#121212" },
+  ],
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className="font-sans antialiased">
-        {children}
-        <Analytics />
+    <html lang="en" suppressHydrationWarning>
+      <body className="font-sans antialiased bg-muted/20 dark:bg-black transition-colors duration-300 flex items-center justify-center min-h-[100dvh] overflow-hidden sm:p-4">
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
+          <div className="w-full h-[100dvh] sm:h-full sm:max-h-[850px] max-w-md bg-background relative sm:rounded-[2.5rem] sm:border-[8px] sm:border-slate-800 dark:sm:border-slate-800/80 shadow-2xl overflow-hidden flex flex-col select-none touch-manipulation ring-1 ring-border/50">
+            {children}
+          </div>
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )
