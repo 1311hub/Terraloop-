@@ -4,15 +4,15 @@ import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Store, ShoppingBasket, Leaf, ArrowLeft } from "lucide-react"
-import { MarketplaceContent } from "@/components/marketplace/marketplace-content"
-import { GrocerPortal } from "@/components/grocer-portal"
+import { OriginalGrocerPortal } from "@/components/original-grocer-portal"
+import { UserMarketplace } from "@/components/user-marketplace"
 
 type SelectedRole = "selector" | "grocer" | "user"
 
 export function RoleSelector() {
   const [selectedRole, setSelectedRole] = useState<SelectedRole>("selector")
 
-  // If User Marketplace is selected, render the full MarketplaceContent
+  // If User Marketplace is selected, render UserMarketplace
   if (selectedRole === "user") {
     return (
       <div className="min-h-screen bg-background">
@@ -30,12 +30,12 @@ export function RoleSelector() {
             </Button>
           </div>
         </div>
-        <MarketplaceContent />
+        <UserMarketplace />
       </div>
     )
   }
 
-  // If Grocer Portal is selected, render the full GrocerPortal
+  // If Grocer Portal is selected, render OriginalGrocerPortal (exact MVP code)
   if (selectedRole === "grocer") {
     return (
       <div className="min-h-screen bg-background">
@@ -53,7 +53,7 @@ export function RoleSelector() {
             </Button>
           </div>
         </div>
-        <GrocerPortal />
+        <OriginalGrocerPortal />
       </div>
     )
   }
